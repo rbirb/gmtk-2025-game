@@ -1,0 +1,132 @@
+[gd_scene load_steps=6 format=3 uid="uid://loykeokgea0k"]
+
+[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://demo1/ui/button/button.tscn" id="1_vnl0b"]
+
+[sub_resource type="Shader" id="Shader_bc4aw"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnl0b"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1i1v"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxpfh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[node name="MainMenu" type="CanvasLayer"]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -199.0
+offset_right = 263.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Start" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Shadow" parent="Menu/Buttons/Start" index="1"]
+material = SubResource("ShaderMaterial_vnl0b")
+
+[node name="Settings" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Label" parent="Menu/Buttons/Settings" index="0"]
+text = "options"
+
+[node name="Shadow" parent="Menu/Buttons/Settings" index="1"]
+material = SubResource("ShaderMaterial_y1i1v")
+
+[node name="Quit" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Label" parent="Menu/Buttons/Quit" index="0"]
+text = "exit"
+
+[node name="Shadow" parent="Menu/Buttons/Quit" index="1"]
+material = SubResource("ShaderMaterial_hxpfh")
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[editable path="Menu/Buttons/Start"]
+[editable path="Menu/Buttons/Settings"]
+[editable path="Menu/Buttons/Quit"]
