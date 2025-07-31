@@ -6,7 +6,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_v46pe"]
 radius = 28.2843
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D"]
+mass = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
@@ -24,3 +25,6 @@ shape = SubResource("CircleShape2D_v46pe")
 
 [node name="RayCast" type="RayCast2D" parent="."]
 collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
