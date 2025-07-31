@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxu12dk5vocnq"]
+
+[ext_resource type="Texture2D" uid="uid://b4meoux37h0jg" path="res://Assets/SpaceShip/PNG_Parts&Spriter_Animation/Ship6/Ship6.png" id="1_hpxlp"]
+[ext_resource type="Script" uid="uid://bo0sr1e6gfooo" path="res://demo1/Player/collisions.gd" id="2_ja6rd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v46pe"]
+radius = 28.2843
+
+[node name="RigidBody2D" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+rotation = -1.5708
+texture = ExtResource("1_hpxlp")
+
+[node name="Collisions" type="Node2D" parent="." node_paths=PackedStringArray("Ship", "RayCast")]
+script = ExtResource("2_ja6rd")
+Ship = NodePath("../ShipCollision")
+RayCast = NodePath("../RayCast")
+
+[node name="ShipCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_v46pe")
+
+[node name="RayCast" type="RayCast2D" parent="."]
+collision_mask = 5
