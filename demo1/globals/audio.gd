@@ -1,6 +1,7 @@
 # Audio Managment Global Script
 # To use write Audio.play_sound("path_to_sound_without_res://sounds/")
 # to play sound from Any script of the game
+class_name AudioPlayer
 extends Node
 
 var current_song: AudioStreamPlayer = null

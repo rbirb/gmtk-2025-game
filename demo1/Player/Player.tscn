@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://012vajwxdfyw"]
+
+[ext_resource type="Script" uid="uid://bkp67flw1rnrq" path="res://demo1/Player/player.gd" id="1_o2vpq"]
+[ext_resource type="Texture2D" uid="uid://cdd06o1o1idll" path="res://Assets/Swager's Sprites/Triangle ship.png" id="1_tgu0q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o2vpq"]
+radius = 6.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_o2vpq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_tgu0q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_o2vpq")
