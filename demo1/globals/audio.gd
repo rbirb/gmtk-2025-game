@@ -6,7 +6,7 @@ extends Node
 var current_song: AudioStreamPlayer = null
 const SOUND_PATH := "res://sounds/"
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if current_song != null:
 		if !current_song.playing:
 			current_song.play()

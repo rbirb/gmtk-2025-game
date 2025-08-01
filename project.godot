@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="GTMK 2025 game"
+config/name="RACE_SKY"
 config/description="Only one [TYPE], Only one [SKY]"
 run/main_scene="uid://bam52wv06ai0r"
 config/features=PackedStringArray("4.4", "GL Compatibility")

@@ -6,7 +6,7 @@ extends Node2D
 
 func GetCollision(ShipCollision: bool, RayCastCollision: bool):
 	assert(ShipCollision == true and RayCastCollision == true, "ERROR: Can't return both CollisionShapes at the same time!")
-	assert(ShipCollision == false and RayCastCollision == false, "ERROR: Please pick a CollisionShape!") #Checking for Null values for both bools
+	assert(ShipCollision == null and RayCastCollision == null, "ERROR: Please pick a CollisionShape!") #Checking for Null values for both bools
 	
 	if RayCastCollision:
 		return RayCast
