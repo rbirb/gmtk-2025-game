@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://loykeokgea0k"]
 
-[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://demo1/ui/button/button.tscn" id="1_vnl0b"]
+[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://ui/button/button.tscn" id="1_vnl0b"]
 
 [sub_resource type="Shader" id="Shader_bc4aw"]
 code = "/**

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1bo4ohdyq38j"
-path="res://.godot/imported/Ship turn.png-7babaaf3d6bdfa4f509a6420881beed4.ctex"
+uid="uid://c7pya23rh73am"
+path="res://.godot/imported/ui_back.png-772226b9f1dfa1324d8885b818fc4831.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Swager's Sprites/Ship turn.png"
-dest_files=["res://.godot/imported/Ship turn.png-7babaaf3d6bdfa4f509a6420881beed4.ctex"]
+source_file="res://ui/level/ui_back.png"
+dest_files=["res://.godot/imported/ui_back.png-772226b9f1dfa1324d8885b818fc4831.ctex"]
 
 [params]
 

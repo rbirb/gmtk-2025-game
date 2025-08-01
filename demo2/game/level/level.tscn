@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmwpueq55kqwl"]
+
+[ext_resource type="Script" uid="uid://dkqvgiwq86s6a" path="res://demo2/game/level/level.gd" id="1_uik6x"]
+[ext_resource type="Script" uid="uid://da0i1hfq5t12o" path="res://demo2/game/level/camera.gd" id="2_rxndf"]
+[ext_resource type="PackedScene" uid="uid://b0kyok3lbm8je" path="res://demo2/game/player/player.tscn" id="3_rxndf"]
+[ext_resource type="Texture2D" uid="uid://c55lr85w0din0" path="res://demo2/game/level/background1.png" id="3_tvemq"]
+[ext_resource type="Texture2D" uid="uid://u1xr3h1pyqi2" path="res://demo2/game/level/clouds.png" id="4_rlbgi"]
+[ext_resource type="PackedScene" uid="uid://cc6kqqjsoqaym" path="res://demo2/game/enemies/circle/circle.tscn" id="6_n0ait"]
+
+[sub_resource type="Curve2D" id="Curve2D_tvemq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3, -357, 0, 0, 0, 0, 655, -357)
+}
+point_count = 2
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_uik6x")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(330, 472)
+ignore_rotation = false
+script = ExtResource("2_rxndf")
+
+[node name="Background" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 902)
+autoscroll = Vector2(0, 20)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(332, 486.001)
+scale = Vector2(6.02, 6.02)
+texture = ExtResource("3_tvemq")
+
+[node name="ScrollingClouds" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 560)
+autoscroll = Vector2(0, 1000)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ScrollingClouds"]
+position = Vector2(325.535, 249.5)
+scale = Vector2(5.06901, 5.1)
+texture = ExtResource("4_rlbgi")
+
+[node name="Player" parent="." instance=ExtResource("3_rxndf")]
+position = Vector2(338, 492)
+
+[node name="EnemySpawn" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tvemq")
+
+[node name="SpawnPattern" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Circle" parent="." instance=ExtResource("6_n0ait")]
+position = Vector2(194, -585)
+
+[node name="Circle2" parent="." instance=ExtResource("6_n0ait")]
+position = Vector2(418, -726)

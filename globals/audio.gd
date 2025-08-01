@@ -1,7 +1,7 @@
 # Audio Managment Global Script
 # To use write Audio.play_sound("path_to_sound_without_res://sounds/")
 # to play sound from Any script of the game
-class_name AudioPlayer
+# ! do not add class_name, it's already global
 extends Node
 
 var current_song: AudioStreamPlayer = null
@@ -54,12 +54,3 @@ func play_sound(sound: String, volume_db:=0.0, pitch_scale:=1.0, max_polyphony:=
 	soundinstance.play()
 	await soundinstance.finished
 	soundinstance.queue_free()
-
-func play_random_sound(path: String, volume_db:=0.0, pitch_scale:=1.0, max_polyphony:=1, bus:="Sounds"):
-	var dir := DirAccess.open(SOUND_PATH+path)
-	assert(dir == null, "play_random_sound: Could not open folder")
-	dir.list_dir_begin()
-	var files: Array[String]
-	for file: String in dir.get_files():
-		files.append(SOUND_PATH + path + "/" + file)
-	play_sound(files[randi_range(0,files.size()-1)], volume_db, pitch_scale, max_polyphony, bus)

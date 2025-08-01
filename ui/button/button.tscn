@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://buoftfjbon5fw"]
 
-[ext_resource type="Texture2D" uid="uid://bajoe2fwsqwwv" path="res://demo1/ui/button/button.png" id="1_m55e1"]
-[ext_resource type="Script" uid="uid://by8clppipa8dw" path="res://demo1/ui/button/button.gd" id="2_bc4aw"]
+[ext_resource type="Texture2D" uid="uid://bajoe2fwsqwwv" path="res://ui/button/button.png" id="1_m55e1"]
+[ext_resource type="Script" uid="uid://by8clppipa8dw" path="res://ui/button/button.gd" id="2_bc4aw"]
 [ext_resource type="FontFile" uid="uid://dvtvr5f2w5wre" path="res://fonts/PixelIntv-OPxd.ttf" id="2_r0pc3"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r0pc3"]
@@ -64,35 +64,6 @@ shader = SubResource("Shader_bc4aw")
 shader_parameter/shadow_offset = Vector2(0, 0)
 shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
 
-[sub_resource type="Animation" id="Animation_r0pc3"]
-resource_local_to_scene = true
-resource_name = "hover"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Shadow:material:shader_parameter/shadow_offset")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(47, 15)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shadow:material:shader_parameter/shadow_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.929412)]
-}
-
 [sub_resource type="Animation" id="Animation_bc4aw"]
 length = 0.001
 tracks/0/type = "value"
@@ -120,10 +91,10 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0.929412)]
 }
 
-[sub_resource type="Animation" id="Animation_ns6xa"]
+[sub_resource type="Animation" id="Animation_r0pc3"]
 resource_local_to_scene = true
-resource_name = "unhover"
-length = 0.2
+resource_name = "hover"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -131,10 +102,10 @@ tracks/0/path = NodePath("Shadow:material:shader_parameter/shadow_offset")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(47, 15), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(47, 15)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,12 +137,56 @@ tracks/0/keys = {
 "values": [Color(0.14902, 0.141176, 0.137255, 0.909804), Color(1, 1, 1, 0.929412)]
 }
 
+[sub_resource type="Animation" id="Animation_ns6xa"]
+resource_local_to_scene = true
+resource_name = "unhover"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shadow:material:shader_parameter/shadow_offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(47, 15), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:material:shader_parameter/shadow_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.929412)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4nwf"]
 _data = {
 &"RESET": SubResource("Animation_bc4aw"),
 &"hover": SubResource("Animation_r0pc3"),
 &"press": SubResource("Animation_ptiqh"),
 &"unhover": SubResource("Animation_ns6xa")
+}
+
+[sub_resource type="Animation" id="Animation_7rnc6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.141176, 0.623529, 0.870588, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_w4nwf"]
@@ -188,39 +203,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.417433, 0.728471, 0.874081, 1), Color(0.992157, 0.494118, 0.305882, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7rnc6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.417433, 0.728471, 0.874081, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_562e6"]
-resource_local_to_scene = true
-resource_name = "unhover"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.99329, 0.494387, 0.30742, 1), Color(0.417433, 0.728471, 0.874081, 1)]
+"values": [Color(0.141176, 0.623529, 0.870588, 1), Color(0.980392, 0.415686, 0.0392157, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xvvot"]
@@ -237,7 +220,24 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.0333333, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.929707, 0.65884, 0.317782, 1), Color(0.992157, 0.494118, 0.305882, 1)]
+"values": [Color(1, 0.835294, 0.254902, 1), Color(0.980392, 0.415686, 0.0392157, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_562e6"]
+resource_local_to_scene = true
+resource_name = "unhover"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.980392, 0.415686, 0.0392157, 1), Color(0.141176, 0.623529, 0.870588, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ns6xa"]
@@ -249,7 +249,7 @@ _data = {
 }
 
 [node name="Button" type="TextureButton"]
-self_modulate = Color(0.417433, 0.728471, 0.874081, 1)
+self_modulate = Color(0.141176, 0.623529, 0.870588, 1)
 custom_minimum_size = Vector2(526, 90)
 offset_right = 526.0
 offset_bottom = 90.0
