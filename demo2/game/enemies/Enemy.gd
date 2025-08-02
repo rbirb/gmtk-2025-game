@@ -24,3 +24,4 @@ func move_down():
 func on_body_entered(body: Node2D):
 	if body.is_in_group("Player"):
 		PlayerStats.get_damage(damage)
+		print(PlayerStats.health)

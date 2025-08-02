@@ -16,8 +16,8 @@ var shoot_cooldown := DEFAULT_STATS["shoot_cooldown"]
 var i_frames := false
 
 func get_damage(amount: int):
-	if i_frames or Global.state != Global.STATE_LEVEL:
-		return
+	#if i_frames or Global.state != Global.STATE_LEVEL:
+		#return
 	health -= amount
 	if health < 0:
 		health = 0
