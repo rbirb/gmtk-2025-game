@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://tcmjok6ju1al"]
+[gd_scene load_steps=9 format=3 uid="uid://tcmjok6ju1al"]
 
+[ext_resource type="Texture2D" uid="uid://cdd06o1o1idll" path="res://Assets/Swager's Sprites/Triangle ship.png" id="1_diotf"]
 [ext_resource type="Texture2D" uid="uid://b8w03dipw44cp" path="res://Assets/Swager's Sprites/Spike Transformation.png" id="1_hftcy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_diotf"]
@@ -43,13 +44,21 @@ animations = [{
 "loop": false,
 "name": &"spike_transformation",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_diotf")
+}],
+"loop": true,
+"name": &"triangle_default",
+"speed": 5.0
 }]
 
 [node name="triangle" type="Area2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_23o30")
-animation = &"spike_transformation"
+animation = &"triangle_default"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-10, -10, -1, 11, 1, 11, 10, -10)
