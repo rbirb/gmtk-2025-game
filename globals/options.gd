@@ -1,5 +1,6 @@
 # Settings Manager Global script
 # Needed for menu's options
+# ! do not add class_name, it's already global
 extends Node
 signal changed
 

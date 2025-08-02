@@ -2,7 +2,7 @@ extends Node
 signal damaged
 
 const DEFAULT_STATS: Dictionary[String, Variant] = {
-	"max_health": 10,
+	"max_health": 5,
 	"speed": 6.0,
 	"bullet_amount": 1,
 	"shoot_cooldown": 0.75,

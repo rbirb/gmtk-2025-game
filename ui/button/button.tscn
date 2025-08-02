@@ -3,9 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bajoe2fwsqwwv" path="res://ui/button/button.png" id="1_m55e1"]
 [ext_resource type="Script" uid="uid://by8clppipa8dw" path="res://ui/button/button.gd" id="2_bc4aw"]
 [ext_resource type="FontFile" uid="uid://dvtvr5f2w5wre" path="res://fonts/PixelIntv-OPxd.ttf" id="2_r0pc3"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r0pc3"]
-load_path = "res://.godot/imported/button.png-2a5494a93f23f12af5b521d70afe185e.ctex"
+[ext_resource type="Texture2D" uid="uid://c1iuo8oruxsll" path="res://ui/button/shadow.png" id="4_8vxab"]
 
 [sub_resource type="Shader" id="Shader_bc4aw"]
 code = "/**
@@ -186,7 +184,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.141176, 0.623529, 0.870588, 1)]
+"values": [Color(0.12549, 0.839216, 0.780392, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_w4nwf"]
@@ -203,7 +201,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.141176, 0.623529, 0.870588, 1), Color(0.980392, 0.415686, 0.0392157, 1)]
+"values": [Color(0.12549, 0.839216, 0.780392, 1), Color(0.980392, 0.415686, 0.0392157, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xvvot"]
@@ -237,7 +235,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.980392, 0.415686, 0.0392157, 1), Color(0.141176, 0.623529, 0.870588, 1)]
+"values": [Color(0.980392, 0.415686, 0.0392157, 1), Color(0.12549, 0.839216, 0.780392, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ns6xa"]
@@ -249,12 +247,12 @@ _data = {
 }
 
 [node name="Button" type="TextureButton"]
-self_modulate = Color(0.141176, 0.623529, 0.870588, 1)
+self_modulate = Color(0.12549, 0.839216, 0.780392, 1)
 custom_minimum_size = Vector2(526, 90)
 offset_right = 526.0
 offset_bottom = 90.0
 focus_mode = 0
-texture_normal = SubResource("CompressedTexture2D_r0pc3")
+texture_normal = ExtResource("1_m55e1")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("2_bc4aw")
@@ -285,7 +283,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_m55e1")
+texture = ExtResource("4_8vxab")
 stretch_mode = 5
 
 [node name="AnimationShadow" type="AnimationPlayer" parent="."]

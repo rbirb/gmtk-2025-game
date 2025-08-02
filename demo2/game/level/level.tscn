@@ -52,7 +52,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="Circle" parent="." instance=ExtResource("6_n0ait")]
-position = Vector2(194, -585)
+position = Vector2(194, -2551)
 
 [node name="Circle2" parent="." instance=ExtResource("6_n0ait")]
-position = Vector2(418, -726)
+position = Vector2(418, -2692)
