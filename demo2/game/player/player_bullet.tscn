@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmogd3c8ai0ii"]
+
+[ext_resource type="Script" uid="uid://b2jh2rm1r5tvm" path="res://demo2/game/player/player_bullet.gd" id="1_0q428"]
+[ext_resource type="Texture2D" uid="uid://6fh60q350dyv" path="res://Assets/Swager's Sprites/Player Bullet.png" id="2_a7c2p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efjg5"]
+size = Vector2(12, 19)
+
+[node name="PlayerBullet" type="Area2D"]
+script = ExtResource("1_0q428")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
+rotation = -1.5708
+texture = ExtResource("2_a7c2p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_efjg5")
+
+[node name="VisibleNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleNotifier2D" to="." method="_on_visible_notifier_2d_screen_exited"]

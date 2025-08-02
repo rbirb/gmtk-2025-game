@@ -144,5 +144,7 @@ curve = SubResource("Curve2D_3n5sw")
 [node name="ShootCooldown" type="Timer" parent="."]
 autostart = true
 
+[node name="BulletContainer" type="Node" parent="."]
+
 [connection signal="timeout" from="TurnAnimation" to="." method="_on_turn_animation_timeout"]
 [connection signal="timeout" from="Invincible" to="." method="_on_invincible_timeout"]

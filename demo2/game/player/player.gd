@@ -10,6 +10,10 @@ const VERTICAL_BORDER_POS_UP := 50
 const VERTICAL_BORDER_POS_DOWN := 900
 var current_frame := 3
 
+var bullet_scene = preload("res://demo2/game/player/player_bullet.tscn")
+
+@onready var bullet_container = $BulletContainer
+
 func _ready() -> void:
 	PlayerStats.damaged.connect(on_damaged)
 
@@ -17,6 +21,8 @@ func _process(delta: float) -> void:
 	handle_animation()
 	
 	handle_movement()
+	
+	shoot()
 
 func handle_animation():
 	if Input.is_action_pressed("left"):
@@ -56,3 +62,10 @@ func _on_invincible_timeout() -> void:
 	PlayerStats.i_frames = false
 	flash_anim.play("RESET")
 	flash_anim.stop()
+
+func shoot():
+	if Input.is_action_just_pressed("shoot"):
+		var bullet_instance = bullet_scene.instantiate()
+		bullet_container.add_child(bullet_instance)
+		bullet_instance.global_position = global_position
+		bullet_instance.global_position.y -= 50
