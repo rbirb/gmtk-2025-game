@@ -1,7 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://cc6kqqjsoqaym"]
+[gd_scene load_steps=23 format=3 uid="uid://cc6kqqjsoqaym"]
 
 [ext_resource type="Script" uid="uid://d1dgnyc6pvf5m" path="res://demo2/game/enemies/circle/circle.gd" id="1_2mhp6"]
 [ext_resource type="Texture2D" uid="uid://c6vqbi8y53ylu" path="res://Assets/Swager's Sprites/Boulder Transformation.png" id="2_325l3"]
+[ext_resource type="Texture2D" uid="uid://bngfwyccq12y5" path="res://Assets/Swager's Sprites/Fire Boulder.png" id="3_qvlvq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16f2y"]
+atlas = ExtResource("2_325l3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfvse"]
+atlas = ExtResource("2_325l3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2dqe"]
+atlas = ExtResource("2_325l3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcl6u"]
+atlas = ExtResource("2_325l3")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvlvq"]
 atlas = ExtResource("2_325l3")
@@ -31,8 +48,49 @@ region = Rect2(32, 0, 32, 32)
 atlas = ExtResource("2_325l3")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu78t"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0oen"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdrhc"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7aaw"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4upcg"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybrrn"]
+atlas = ExtResource("3_qvlvq")
+region = Rect2(160, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_16f2y"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16f2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfvse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2dqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcl6u")
+}],
+"loop": false,
+"name": &"boulder_transformation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvlvq")
@@ -58,6 +116,29 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eu78t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0oen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdrhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7aaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4upcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybrrn")
+}],
+"loop": true,
+"name": &"fire_boulder",
+"speed": 20.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k3dyt"]
@@ -71,8 +152,8 @@ damage = 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(5.48438, 5.48438)
 sprite_frames = SubResource("SpriteFrames_16f2y")
+animation = &"fire_boulder"
 autoplay = "default"
-frame_progress = 0.200845
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_k3dyt")
