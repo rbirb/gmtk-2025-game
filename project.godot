@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="RACE_SKY"
-config/description="Only one [TYPE], Only one [SKY]"
+config/name="RACESKY"
+config/description="Only one [RACE], Only one [SKY]"
 run/main_scene="uid://cmwpueq55kqwl"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
