@@ -1,0 +1,140 @@
+[gd_scene load_steps=15 format=3 uid="uid://c3js71jrh7rmu"]
+
+[ext_resource type="Script" uid="uid://dogo73m4gudlg" path="res://game/enemies/cube/cube.gd" id="1_v6nha"]
+[ext_resource type="Texture2D" uid="uid://dmqxby2dfciwl" path="res://Assets/Swager's Sprites/square enemy appearing.png" id="2_icn8n"]
+[ext_resource type="Texture2D" uid="uid://brsojalyrmno7" path="res://Assets/Swager's Sprites/square enemy.png" id="3_l7v4g"]
+
+[sub_resource type="Shader" id="Shader_icn8n"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7v4g"]
+resource_local_to_scene = true
+shader = SubResource("Shader_icn8n")
+shader_parameter/active = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsued"]
+atlas = ExtResource("2_icn8n")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j40p6"]
+atlas = ExtResource("2_icn8n")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3derr"]
+atlas = ExtResource("2_icn8n")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsthd"]
+atlas = ExtResource("2_icn8n")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6nha"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_rsued")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_j40p6")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3derr")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_vsthd")
+}],
+"loop": false,
+"name": &"appear",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_l7v4g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icn8n"]
+size = Vector2(76, 81)
+
+[sub_resource type="Animation" id="Animation_j40p6"]
+resource_local_to_scene = true
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rsued"]
+resource_local_to_scene = true
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3derr"]
+_data = {
+&"RESET": SubResource("Animation_j40p6"),
+&"flash": SubResource("Animation_rsued")
+}
+
+[node name="Cube" type="Area2D" groups=["Cube", "Enemy"]]
+script = ExtResource("1_v6nha")
+speed = 50.0
+damage = 1
+health = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_l7v4g")
+position = Vector2(0, -5)
+scale = Vector2(4.25977, 4.25977)
+sprite_frames = SubResource("SpriteFrames_v6nha")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_icn8n")
+
+[node name="AnimationFlash" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3derr")
+}
+
+[node name="MoveCD" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="MoveCD" to="." method="move"]

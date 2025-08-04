@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://bicq5c5ivkh4y"]
+
+[ext_resource type="Script" uid="uid://0bui6inpft3v" path="res://game/enemies/triangle/triangle.gd" id="1_py1br"]
+[ext_resource type="Texture2D" uid="uid://cdd06o1o1idll" path="res://Assets/Swager's Sprites/Triangle ship.png" id="2_8ly2b"]
+
+[sub_resource type="Shader" id="Shader_8ly2b"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ep0j5"]
+resource_local_to_scene = true
+shader = SubResource("Shader_8ly2b")
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ly2b"]
+radius = 28.0179
+
+[sub_resource type="Animation" id="Animation_on5aj"]
+resource_local_to_scene = true
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_cs2dl"]
+resource_local_to_scene = true
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w3h1j"]
+_data = {
+&"RESET": SubResource("Animation_on5aj"),
+&"flash": SubResource("Animation_cs2dl")
+}
+
+[node name="Triangle" type="Area2D" groups=["Enemy", "Triangle"]]
+script = ExtResource("1_py1br")
+speed = 300.0
+damage = 1
+health = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ep0j5")
+rotation = -1.5708
+scale = Vector2(4.60938, 4.60938)
+texture = ExtResource("2_8ly2b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8ly2b")
+
+[node name="MoveCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationFlash" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_w3h1j")
+}

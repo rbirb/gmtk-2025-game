@@ -1,0 +1,143 @@
+[gd_scene load_steps=17 format=3 uid="uid://cc6kqqjsoqaym"]
+
+[ext_resource type="Script" uid="uid://d1dgnyc6pvf5m" path="res://game/enemies/circle/circle.gd" id="1_2mhp6"]
+[ext_resource type="Texture2D" uid="uid://c6vqbi8y53ylu" path="res://Assets/Swager's Sprites/Boulder Transformation.png" id="2_325l3"]
+
+[sub_resource type="Shader" id="Shader_ub6hv"]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1nv5t"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ub6hv")
+shader_parameter/active = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvlvq"]
+atlas = ExtResource("2_325l3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i47r4"]
+atlas = ExtResource("2_325l3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4m6i"]
+atlas = ExtResource("2_325l3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqmwe"]
+atlas = ExtResource("2_325l3")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i58ke"]
+atlas = ExtResource("2_325l3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gyjd"]
+atlas = ExtResource("2_325l3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13y2q"]
+atlas = ExtResource("2_325l3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_16f2y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvlvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i47r4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4m6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqmwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i58ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gyjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13y2q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3dyt"]
+radius = 48.0
+
+[sub_resource type="Animation" id="Animation_eip2c"]
+resource_local_to_scene = true
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tajmw"]
+resource_local_to_scene = true
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ttrns"]
+_data = {
+&"RESET": SubResource("Animation_eip2c"),
+&"flash": SubResource("Animation_tajmw")
+}
+
+[node name="Circle" type="Area2D" groups=["Circle", "Enemy"]]
+script = ExtResource("1_2mhp6")
+speed = 370.0
+damage = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_1nv5t")
+scale = Vector2(5.48438, 5.48438)
+sprite_frames = SubResource("SpriteFrames_16f2y")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k3dyt")
+
+[node name="AnimationFlash" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ttrns")
+}

@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmwpueq55kqwl"]
+
+[ext_resource type="Script" uid="uid://dkqvgiwq86s6a" path="res://game/level/level.gd" id="1_uik6x"]
+[ext_resource type="Script" uid="uid://da0i1hfq5t12o" path="res://game/level/camera.gd" id="2_rxndf"]
+[ext_resource type="PackedScene" uid="uid://b0kyok3lbm8je" path="res://game/player/player.tscn" id="3_rxndf"]
+[ext_resource type="Texture2D" uid="uid://c55lr85w0din0" path="res://game/level/background1.png" id="3_tvemq"]
+[ext_resource type="Texture2D" uid="uid://u1xr3h1pyqi2" path="res://game/level/clouds.png" id="4_rlbgi"]
+
+[sub_resource type="Curve2D" id="Curve2D_tvemq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3, -170, 0, 0, 0, 0, 655, -170)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dynoe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -305, 10, 0, 0, 0, 0, -305, 920)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k26x8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 960, 10, 0, 0, 0, 0, 960, 920)
+}
+point_count = 2
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_uik6x")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(330, 472)
+ignore_rotation = false
+script = ExtResource("2_rxndf")
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+one_shot = true
+
+[node name="Background" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 902.785)
+autoscroll = Vector2(0, 20)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+self_modulate = Color(0.986382, 0.929547, 0.911825, 1)
+position = Vector2(332, 486.001)
+scale = Vector2(6.02, 6.02)
+texture = ExtResource("3_tvemq")
+
+[node name="ScrollingClouds" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 560)
+autoscroll = Vector2(0, 1000)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ScrollingClouds"]
+position = Vector2(325.535, 249.5)
+scale = Vector2(5.06901, 5.1)
+texture = ExtResource("4_rlbgi")
+
+[node name="Player" parent="." instance=ExtResource("3_rxndf")]
+position = Vector2(338, 492)
+
+[node name="EnemySpawnTop" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tvemq")
+
+[node name="EnemySpawnSideLeft" type="Path2D" parent="."]
+curve = SubResource("Curve2D_dynoe")
+
+[node name="WallSpawnSideLeft" type="Node2D" parent="."]
+position = Vector2(0, -570)
+
+[node name="EnemySpawnSideRight" type="Path2D" parent="."]
+curve = SubResource("Curve2D_k26x8")
+
+[node name="WallSpawnSideRight" type="Node2D" parent="."]
+position = Vector2(677, -570)
+
+[node name="SpawnPatternCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SpawnDamagersCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SpawnCooldown" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="DamagerSpawnCooldown" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="SpawnPatternCooldown" to="." method="_on_spawn_pattern_cooldown_timeout"]
+[connection signal="timeout" from="SpawnDamagersCooldown" to="." method="_on_spawn_damagers_cooldown_timeout"]
+[connection signal="timeout" from="SpawnCooldown" to="." method="_on_spawn_cooldown_timeout"]
+[connection signal="timeout" from="DamagerSpawnCooldown" to="." method="_on_damager_spawn_cooldown_timeout"]

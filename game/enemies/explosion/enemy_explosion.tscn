@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfxwxkjfa6byg"]
+
+[ext_resource type="Texture2D" uid="uid://xuxofa41qmxl" path="res://Assets/Red Effect Bullet Impact Explosion 32x32.png" id="1_uvdg2"]
+[ext_resource type="Script" uid="uid://dtmugqa1dwp24" path="res://game/enemies/explosion/enemy_explosion.gd" id="2_ihe3e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfxkb"]
+atlas = ExtResource("1_uvdg2")
+region = Rect2(512, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npqty"]
+atlas = ExtResource("1_uvdg2")
+region = Rect2(544, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxbsy"]
+atlas = ExtResource("1_uvdg2")
+region = Rect2(576, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f42di"]
+atlas = ExtResource("1_uvdg2")
+region = Rect2(608, 384, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffk8u"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_mfxkb")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_npqty")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_fxbsy")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_f42di")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyExplosion" type="AnimatedSprite2D"]
+scale = Vector2(5.03125, 5.03125)
+sprite_frames = SubResource("SpriteFrames_ffk8u")
+autoplay = "default"
+script = ExtResource("2_ihe3e")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

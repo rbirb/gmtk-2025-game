@@ -1,0 +1,458 @@
+[gd_scene load_steps=25 format=3 uid="uid://loykeokgea0k"]
+
+[ext_resource type="Script" uid="uid://db35pn1cwlj2f" path="res://ui/main_menu/main_menu.gd" id="1_mu8pm"]
+[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://ui/button/button.tscn" id="1_vnl0b"]
+[ext_resource type="Texture2D" uid="uid://5v324o3vu5hi" path="res://ui/main_menu/background.png" id="2_omy8q"]
+[ext_resource type="PackedScene" uid="uid://d12kegvajsxx3" path="res://ui/settings/settings.tscn" id="4_i5wg5"]
+[ext_resource type="Shader" uid="uid://cgwouhporagag" path="res://shaders/trans.gdshader" id="5_3c04x"]
+
+[sub_resource type="Shader" id="Shader_ti42n"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnl0b"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1i1v"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxpfh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="Animation" id="Animation_3c04x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Buttons:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-534.07, 268)]
+}
+
+[sub_resource type="Animation" id="Animation_i5wg5"]
+resource_name = "move"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Buttons:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-534.07, 268), Vector2(75, 268)]
+}
+
+[sub_resource type="Animation" id="Animation_s4pem"]
+resource_name = "move_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Buttons:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(75, 268), Vector2(729.475, 268)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_joh67"]
+_data = {
+&"RESET": SubResource("Animation_3c04x"),
+&"move": SubResource("Animation_i5wg5"),
+&"move_2": SubResource("Animation_s4pem")
+}
+
+[sub_resource type="Shader" id="Shader_bc4aw"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5wg5"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_joh67"]
+shader = ExtResource("5_3c04x")
+shader_parameter/AspectRatio = 0.705
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = 0.725
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_3c04x"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_joh67"]
+gradient = SubResource("Gradient_3c04x")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Animation" id="Animation_u184e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.725]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6mijq"]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.725, -1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_w2r0d"]
+resource_name = "in2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.725, -1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_joh67"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 0.725]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4e78x"]
+resource_name = "out2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Trans:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 0.725]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Trans:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6mijq"]
+_data = {
+&"RESET": SubResource("Animation_u184e"),
+&"in": SubResource("Animation_6mijq"),
+&"in2": SubResource("Animation_w2r0d"),
+&"out": SubResource("Animation_joh67"),
+&"out2": SubResource("Animation_4e78x")
+}
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_mu8pm")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_omy8q")
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -199.0
+offset_right = 263.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Start" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Shadow" parent="Menu/Buttons/Start" index="1"]
+material = SubResource("ShaderMaterial_vnl0b")
+
+[node name="Settings" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Label" parent="Menu/Buttons/Settings" index="0"]
+text = "options"
+
+[node name="Shadow" parent="Menu/Buttons/Settings" index="1"]
+material = SubResource("ShaderMaterial_y1i1v")
+
+[node name="Quit" parent="Menu/Buttons" instance=ExtResource("1_vnl0b")]
+layout_mode = 2
+
+[node name="Label" parent="Menu/Buttons/Quit" index="0"]
+text = "exit"
+
+[node name="Shadow" parent="Menu/Buttons/Quit" index="1"]
+material = SubResource("ShaderMaterial_hxpfh")
+
+[node name="AnimationMove" type="AnimationPlayer" parent="Menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_joh67")
+}
+autoplay = "move"
+
+[node name="Settings" parent="." instance=ExtResource("4_i5wg5")]
+visible = false
+
+[node name="Shadow" parent="Settings/Buttons/Add5Music" index="1"]
+material = SubResource("ShaderMaterial_i5wg5")
+
+[node name="Shadow" parent="Settings/Buttons/Sub5Music" index="1"]
+material = SubResource("ShaderMaterial_i5wg5")
+
+[node name="Shadow" parent="Settings/Buttons/Add5Sounds" index="1"]
+material = SubResource("ShaderMaterial_i5wg5")
+
+[node name="Shadow" parent="Settings/Buttons/Sub5Sounds" index="1"]
+material = SubResource("ShaderMaterial_i5wg5")
+
+[node name="Shadow" parent="Settings/Buttons/Back" index="1"]
+material = SubResource("ShaderMaterial_i5wg5")
+
+[node name="Trans" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_joh67")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_joh67")
+
+[node name="AnimationTrans" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6mijq")
+}
+autoplay = "in"
+
+[connection signal="pressed" from="Menu/Buttons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Menu/Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Settings/Buttons/Back" to="." method="_on_back_pressed"]
+
+[editable path="Menu/Buttons/Start"]
+[editable path="Menu/Buttons/Settings"]
+[editable path="Menu/Buttons/Quit"]
+[editable path="Settings"]
+[editable path="Settings/Buttons/Add5Music"]
+[editable path="Settings/Buttons/Sub5Music"]
+[editable path="Settings/Buttons/Add5Sounds"]
+[editable path="Settings/Buttons/Sub5Sounds"]
+[editable path="Settings/Buttons/Back"]

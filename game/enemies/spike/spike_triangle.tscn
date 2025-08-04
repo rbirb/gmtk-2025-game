@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://y5fxiicygreg"]
+
+[ext_resource type="Script" uid="uid://crtdcke7uv1g7" path="res://game/enemies/spike/spike_triangle.gd" id="1_tx03y"]
+[ext_resource type="Texture2D" uid="uid://b8w03dipw44cp" path="res://Assets/Swager's Sprites/Spike Transformation.png" id="2_stlay"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiilo"]
+atlas = ExtResource("2_stlay")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0cfug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiilo")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stlay"]
+radius = 25.02
+
+[node name="SpikeTriangle" type="Area2D" groups=["Damager"]]
+script = ExtResource("1_tx03y")
+speed = 420.0
+damage = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4.60937, 4.60937)
+sprite_frames = SubResource("SpriteFrames_0cfug")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_stlay")

@@ -1,0 +1,1299 @@
+[gd_scene load_steps=55 format=3 uid="uid://u1w67hym2d11"]
+
+[ext_resource type="PackedScene" uid="uid://cmwpueq55kqwl" path="res://game/level/level.tscn" id="1_47rna"]
+[ext_resource type="Script" uid="uid://bcx816eiekhxn" path="res://view/view.gd" id="1_s4qqx"]
+[ext_resource type="Texture2D" uid="uid://c7pya23rh73am" path="res://ui/level/ui_back.png" id="2_k3vg2"]
+[ext_resource type="Script" uid="uid://cgjkktasic2fd" path="res://ui/level.gd" id="3_ibxbx"]
+[ext_resource type="FontFile" uid="uid://dvtvr5f2w5wre" path="res://fonts/PixelIntv-OPxd.ttf" id="3_mfsk7"]
+[ext_resource type="Script" uid="uid://cof7dm23amefd" path="res://ui/level/hp.gd" id="3_yn2vn"]
+[ext_resource type="Texture2D" uid="uid://bu25khnqr2bia" path="res://ui/level/ui_back_2.png" id="4_mfsk7"]
+[ext_resource type="Texture2D" uid="uid://dsrwuv0fnnt1t" path="res://ui/level/types/circle.png" id="5_i6evu"]
+[ext_resource type="Script" uid="uid://cwug6mhbiogdy" path="res://ui/level/kills.gd" id="5_lywnt"]
+[ext_resource type="Script" uid="uid://dovrdfqueseby" path="res://ui/level/type.gd" id="8_qjsu1"]
+[ext_resource type="PackedScene" uid="uid://loykeokgea0k" path="res://ui/main_menu/main_menu.tscn" id="8_qk5j1"]
+[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://ui/button/button.tscn" id="9_2xerh"]
+[ext_resource type="Script" uid="uid://sw2qpukjlpe0" path="res://ui/paused.gd" id="9_bdoo3"]
+[ext_resource type="Script" uid="uid://bhe2nhpx0k02g" path="res://ui/upgrade.gd" id="10_6q5nx"]
+[ext_resource type="PackedScene" uid="uid://d12kegvajsxx3" path="res://ui/settings/settings.tscn" id="10_y7x3u"]
+[ext_resource type="PackedScene" uid="uid://cu1p32sgup67e" path="res://ui/big_button/big_button.tscn" id="11_usktn"]
+[ext_resource type="Script" uid="uid://dubwbccixfnb2" path="res://ui/death.gd" id="12_tbmws"]
+[ext_resource type="Script" uid="uid://bixs3h3krepov" path="res://ui/score.gd" id="13_cuvt2"]
+[ext_resource type="Script" uid="uid://msdbuhvmrw46" path="res://view/loop.gd" id="14_qu8sg"]
+
+[sub_resource type="Animation" id="Animation_yfatv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.611765, 0.858824, 0.262745, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b5hno"]
+resource_name = "hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.980392, 0.415686, 0.0392157, 1), Color(0.611765, 0.858824, 0.262745, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hk5k2"]
+_data = {
+&"RESET": SubResource("Animation_yfatv"),
+&"hit": SubResource("Animation_b5hno")
+}
+
+[sub_resource type="Animation" id="Animation_bg3bg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.980392, 0.415686, 0.0392157, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nnemm"]
+resource_name = "flick"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 0.835294, 0.254902, 1), Color(0.980392, 0.415686, 0.0392157, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jcorh"]
+_data = {
+&"RESET": SubResource("Animation_bg3bg"),
+&"flick": SubResource("Animation_nnemm")
+}
+
+[sub_resource type="Animation" id="Animation_hk5k2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HP:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-406.165, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kills:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(703.785, 694)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Type:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(700.78, 792)]
+}
+
+[sub_resource type="Animation" id="Animation_qtbv1"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HP:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-406.165, 10), Vector2(-86, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kills:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(703.785, 694), Vector2(483, 694)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Type:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(700.78, 792), Vector2(405, 792)]
+}
+
+[sub_resource type="Animation" id="Animation_6v4pw"]
+resource_name = "disappear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HP:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-86, 10), Vector2(-406.165, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kills:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(483, 694), Vector2(703.785, 694)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Type:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(405, 792), Vector2(700.78, 792)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6v4pw"]
+_data = {
+&"RESET": SubResource("Animation_hk5k2"),
+&"appear": SubResource("Animation_qtbv1"),
+&"disappear": SubResource("Animation_6v4pw")
+}
+
+[sub_resource type="Shader" id="Shader_bc4aw"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usktn"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="Animation" id="Animation_ibxbx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.00392157, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qu8sg"]
+resource_name = "act"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.00392157, 0, 0, 0), Color(0.00392157, 0, 0, 0.603922)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u25h3"]
+_data = {
+&"RESET": SubResource("Animation_ibxbx"),
+&"act": SubResource("Animation_qu8sg")
+}
+
+[sub_resource type="Animation" id="Animation_nk5to"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(33, 250)]
+}
+
+[sub_resource type="Animation" id="Animation_u25h3"]
+resource_name = "act"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(50, 50), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-11000, 250), Vector2(31.145, 250)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.466667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"title_sound"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hj1ie"]
+_data = {
+&"RESET": SubResource("Animation_nk5to"),
+&"act": SubResource("Animation_u25h3")
+}
+
+[sub_resource type="Animation" id="Animation_1nw3m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Restart:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(75, 796)]
+}
+
+[sub_resource type="Animation" id="Animation_hj1ie"]
+resource_name = "act"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Restart:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 2.73333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(75, 950.745), Vector2(75, 796)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hkuf3"]
+_data = {
+&"RESET": SubResource("Animation_1nw3m"),
+&"act": SubResource("Animation_hj1ie")
+}
+
+[sub_resource type="Animation" id="Animation_juilu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Score:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Loop:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xwxyu"]
+resource_name = "act"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label3:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Score:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Loop:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5hno"]
+_data = {
+&"RESET": SubResource("Animation_juilu"),
+&"act": SubResource("Animation_xwxyu")
+}
+
+[sub_resource type="Animation" id="Animation_hkuf3"]
+resource_name = "act"
+length = 3.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Score")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.03333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"act"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Loop")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.03333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"act"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwxyu"]
+_data = {
+&"act": SubResource("Animation_hkuf3")
+}
+
+[sub_resource type="Shader" id="Shader_tbmws"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdoo3"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tbmws")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5sk3"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tbmws")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_06578"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tbmws")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="Shader" id="Shader_ti42n"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4qqx"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xerh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7x3u"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ti42n")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ti42n"]
+resource_local_to_scene = true
+shader = SubResource("Shader_tbmws")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[node name="View" type="CanvasLayer"]
+script = ExtResource("1_s4qqx")
+
+[node name="SVContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SViewport" type="SubViewport" parent="SVContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+size = Vector2i(676, 934)
+render_target_update_mode = 4
+
+[node name="Level" parent="SVContainer/SViewport" instance=ExtResource("1_47rna")]
+process_mode = 4
+
+[node name="UI" type="CanvasLayer" parent="SVContainer/SViewport"]
+visible = false
+
+[node name="Level" type="Control" parent="SVContainer/SViewport/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_ibxbx")
+
+[node name="HP" type="TextureRect" parent="SVContainer/SViewport/UI/Level"]
+self_modulate = Color(0.611765, 0.858824, 0.262745, 1)
+layout_mode = 0
+offset_left = -406.165
+offset_top = 10.0
+offset_right = -13.165
+offset_bottom = 101.0
+texture = ExtResource("2_k3vg2")
+stretch_mode = 5
+script = ExtResource("3_yn2vn")
+
+[node name="Label" type="Label" parent="SVContainer/SViewport/UI/Level/HP"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -36.5
+offset_bottom = 34.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 51
+text = "100"
+vertical_alignment = 1
+
+[node name="AnimationHit" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Level/HP"]
+libraries = {
+&"": SubResource("AnimationLibrary_hk5k2")
+}
+
+[node name="Kills" type="TextureRect" parent="SVContainer/SViewport/UI/Level"]
+self_modulate = Color(0.980392, 0.415686, 0.0392157, 1)
+layout_mode = 0
+offset_left = 703.785
+offset_top = 694.0
+offset_right = 1096.78
+offset_bottom = 785.0
+texture = ExtResource("2_k3vg2")
+stretch_mode = 5
+script = ExtResource("5_lywnt")
+
+[node name="Label" type="Label" parent="SVContainer/SViewport/UI/Level/Kills"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -35.5
+offset_right = 186.0
+offset_bottom = 35.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 51
+text = "999"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AnimationFlick" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Level/Kills"]
+libraries = {
+&"": SubResource("AnimationLibrary_jcorh")
+}
+
+[node name="Type" type="TextureRect" parent="SVContainer/SViewport/UI/Level"]
+self_modulate = Color(1, 0.835294, 0.254902, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.78
+offset_top = -142.0
+offset_right = 498.78
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_mfsk7")
+stretch_mode = 5
+script = ExtResource("8_qjsu1")
+
+[node name="Icon" type="TextureRect" parent="SVContainer/SViewport/UI/Level/Type"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -44.0
+offset_right = -20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_i6evu")
+stretch_mode = 5
+
+[node name="AnimationAppear" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Level"]
+libraries = {
+&"": SubResource("AnimationLibrary_6v4pw")
+}
+
+[node name="Upgrade" type="Control" parent="SVContainer/SViewport/UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_6q5nx")
+
+[node name="ColorRect3" type="ColorRect" parent="SVContainer/SViewport/UI/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0, 0.603922)
+
+[node name="Player" type="Control" parent="SVContainer/SViewport/UI/Upgrade"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SVContainer/SViewport/UI/Upgrade/Player"]
+self_modulate = Color(0.611765, 0.858824, 0.262745, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = 55.0
+offset_right = 305.0
+offset_bottom = 132.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 65
+text = "player upgrade"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="SVContainer/SViewport/UI/Upgrade/Player"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -284.0
+offset_right = 273.5
+offset_bottom = 404.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="PlayerFirst" parent="SVContainer/SViewport/UI/Upgrade/Player/Buttons" instance=ExtResource("11_usktn")]
+layout_mode = 2
+
+[node name="PlayerSecond" parent="SVContainer/SViewport/UI/Upgrade/Player/Buttons" instance=ExtResource("11_usktn")]
+layout_mode = 2
+
+[node name="Enemy" type="Control" parent="SVContainer/SViewport/UI/Upgrade"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SVContainer/SViewport/UI/Upgrade/Enemy"]
+self_modulate = Color(1, 0.835294, 0.254902, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = 55.0
+offset_right = 305.0
+offset_bottom = 132.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 65
+text = "enemy upgrade"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="SVContainer/SViewport/UI/Upgrade/Enemy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -284.0
+offset_right = 273.5
+offset_bottom = 404.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="EnemyFirst" parent="SVContainer/SViewport/UI/Upgrade/Enemy/Buttons" instance=ExtResource("11_usktn")]
+layout_mode = 2
+
+[node name="EnemySecond" parent="SVContainer/SViewport/UI/Upgrade/Enemy/Buttons" instance=ExtResource("11_usktn")]
+layout_mode = 2
+
+[node name="Death" type="Control" parent="SVContainer/SViewport/UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_tbmws")
+
+[node name="ColorRect2" type="ColorRect" parent="SVContainer/SViewport/UI/Death"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0, 0)
+
+[node name="Label" type="Label" parent="SVContainer/SViewport/UI/Death"]
+self_modulate = Color(0.980392, 0.415686, 0.0392157, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = 250.0
+offset_right = 305.0
+offset_bottom = 327.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 65
+text = "ship exploded"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="SVContainer/SViewport/UI/Death"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = 353.0
+offset_right = 305.0
+offset_bottom = 430.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 65
+text = "[ score ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="SVContainer/SViewport/UI/Death"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = 539.0
+offset_right = 305.0
+offset_bottom = 616.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 65
+text = "[ loop ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="SVContainer/SViewport/UI/Death"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0.835294, 0.254902, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -68.0
+offset_right = 305.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 115
+text = "10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("13_cuvt2")
+
+[node name="Loop" type="Label" parent="SVContainer/SViewport/UI/Death"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = 115.0
+offset_right = 305.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.392157)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("3_mfsk7")
+theme_override_font_sizes/font_size = 90
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("14_qu8sg")
+
+[node name="Restart" parent="SVContainer/SViewport/UI/Death" instance=ExtResource("9_2xerh")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -138.0
+offset_right = 263.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" parent="SVContainer/SViewport/UI/Death/Restart" index="0"]
+text = "restart"
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Death/Restart" index="1"]
+material = SubResource("ShaderMaterial_usktn")
+
+[node name="AnimationBG" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_u25h3")
+}
+
+[node name="AnimationTitle" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_hj1ie")
+}
+
+[node name="AnimationButton" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_hkuf3")
+}
+
+[node name="AnimationText" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_b5hno")
+}
+
+[node name="AnimationNumbers" type="AnimationPlayer" parent="SVContainer/SViewport/UI/Death"]
+libraries = {
+&"": SubResource("AnimationLibrary_xwxyu")
+}
+
+[node name="Paused" type="Control" parent="SVContainer/SViewport/UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_bdoo3")
+
+[node name="ColorRect" type="ColorRect" parent="SVContainer/SViewport/UI/Paused"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0, 0.603922)
+
+[node name="Menu" type="Control" parent="SVContainer/SViewport/UI/Paused"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="SVContainer/SViewport/UI/Paused/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -199.0
+offset_right = 263.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Resume" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons" instance=ExtResource("9_2xerh")]
+layout_mode = 2
+
+[node name="Label" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Resume" index="0"]
+text = "resume"
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Resume" index="1"]
+material = SubResource("ShaderMaterial_bdoo3")
+
+[node name="Settings" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons" instance=ExtResource("9_2xerh")]
+layout_mode = 2
+
+[node name="Label" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Settings" index="0"]
+text = "options"
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Settings" index="1"]
+material = SubResource("ShaderMaterial_bdoo3")
+
+[node name="Exit" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons" instance=ExtResource("9_2xerh")]
+layout_mode = 2
+
+[node name="Label" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Exit" index="0"]
+text = "exit"
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Menu/Buttons/Exit" index="1"]
+material = SubResource("ShaderMaterial_x5sk3")
+
+[node name="Settings" parent="SVContainer/SViewport/UI/Paused" instance=ExtResource("10_y7x3u")]
+visible = false
+layout_mode = 1
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Settings/Buttons/Add5Music" index="1"]
+material = SubResource("ShaderMaterial_06578")
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Settings/Buttons/Sub5Music" index="1"]
+material = SubResource("ShaderMaterial_06578")
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Settings/Buttons/Add5Sounds" index="1"]
+material = SubResource("ShaderMaterial_06578")
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Settings/Buttons/Sub5Sounds" index="1"]
+material = SubResource("ShaderMaterial_06578")
+
+[node name="Shadow" parent="SVContainer/SViewport/UI/Paused/Settings/Buttons/Back" index="1"]
+material = SubResource("ShaderMaterial_06578")
+
+[node name="MainMenu" parent="SVContainer/SViewport" instance=ExtResource("8_qk5j1")]
+
+[node name="Buttons" parent="SVContainer/SViewport/MainMenu/Menu" index="0"]
+offset_left = -872.07
+offset_right = -346.07
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Menu/Buttons/Start" index="1"]
+material = SubResource("ShaderMaterial_s4qqx")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Menu/Buttons/Settings" index="1"]
+material = SubResource("ShaderMaterial_2xerh")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Menu/Buttons/Quit" index="1"]
+material = SubResource("ShaderMaterial_y7x3u")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Settings/Buttons/Add5Music" index="1"]
+material = SubResource("ShaderMaterial_ti42n")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Settings/Buttons/Sub5Music" index="1"]
+material = SubResource("ShaderMaterial_ti42n")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Settings/Buttons/Add5Sounds" index="1"]
+material = SubResource("ShaderMaterial_ti42n")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Settings/Buttons/Sub5Sounds" index="1"]
+material = SubResource("ShaderMaterial_ti42n")
+
+[node name="Shadow" parent="SVContainer/SViewport/MainMenu/Settings/Buttons/Back" index="1"]
+material = SubResource("ShaderMaterial_ti42n")
+
+[connection signal="pressed" from="SVContainer/SViewport/UI/Upgrade/Player/Buttons/PlayerFirst" to="SVContainer/SViewport/UI/Upgrade" method="_on_player_first_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Upgrade/Player/Buttons/PlayerSecond" to="SVContainer/SViewport/UI/Upgrade" method="_on_player_second_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Upgrade/Enemy/Buttons/EnemyFirst" to="SVContainer/SViewport/UI/Upgrade" method="_on_enemy_first_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Upgrade/Enemy/Buttons/EnemySecond" to="SVContainer/SViewport/UI/Upgrade" method="_on_enemy_second_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Death/Restart" to="SVContainer/SViewport/UI/Death" method="_on_restart_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Paused/Menu/Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Paused/Menu/Buttons/Settings" to="SVContainer/SViewport/UI/Paused" method="_on_settings_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Paused/Menu/Buttons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/UI/Paused/Settings/Buttons/Back" to="SVContainer/SViewport/UI/Paused" method="_on_back_pressed"]
+[connection signal="pressed" from="SVContainer/SViewport/MainMenu/Menu/Buttons/Start" to="." method="_on_start_pressed"]
+
+[editable path="SVContainer/SViewport/UI/Death/Restart"]
+[editable path="SVContainer/SViewport/UI/Paused/Menu/Buttons/Resume"]
+[editable path="SVContainer/SViewport/UI/Paused/Menu/Buttons/Settings"]
+[editable path="SVContainer/SViewport/UI/Paused/Menu/Buttons/Exit"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings/Buttons/Add5Music"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings/Buttons/Sub5Music"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings/Buttons/Add5Sounds"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings/Buttons/Sub5Sounds"]
+[editable path="SVContainer/SViewport/UI/Paused/Settings/Buttons/Back"]
+[editable path="SVContainer/SViewport/MainMenu"]
+[editable path="SVContainer/SViewport/MainMenu/Menu/Buttons/Start"]
+[editable path="SVContainer/SViewport/MainMenu/Menu/Buttons/Settings"]
+[editable path="SVContainer/SViewport/MainMenu/Menu/Buttons/Quit"]
+[editable path="SVContainer/SViewport/MainMenu/Settings"]
+[editable path="SVContainer/SViewport/MainMenu/Settings/Buttons/Add5Music"]
+[editable path="SVContainer/SViewport/MainMenu/Settings/Buttons/Sub5Music"]
+[editable path="SVContainer/SViewport/MainMenu/Settings/Buttons/Add5Sounds"]
+[editable path="SVContainer/SViewport/MainMenu/Settings/Buttons/Sub5Sounds"]
+[editable path="SVContainer/SViewport/MainMenu/Settings/Buttons/Back"]

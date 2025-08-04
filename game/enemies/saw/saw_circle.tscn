@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://ba8df7fi77sao"]
+
+[ext_resource type="Script" uid="uid://bjsbycll15lsv" path="res://saw_circle.gd" id="1_j1aks"]
+[ext_resource type="Texture2D" uid="uid://bngfwyccq12y5" path="res://Assets/Swager's Sprites/Fire Boulder.png" id="2_qivv3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uory2"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4xxl"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_231i2"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqmk2"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkdh2"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_douq4"]
+atlas = ExtResource("2_qivv3")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0f8o1"]
+animations = [{
+"frames": [{
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_uory2")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_w4xxl")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_231i2")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_bqmk2")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_bkdh2")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_douq4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qivv3"]
+radius = 58.0345
+
+[node name="SawCircle" type="Area2D" groups=["Damager"]]
+script = ExtResource("1_j1aks")
+speed = 600.0
+damage = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5.21875, 5.21875)
+sprite_frames = SubResource("SpriteFrames_0f8o1")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qivv3")
