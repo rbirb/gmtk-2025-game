@@ -1,0 +1,144 @@
+[gd_scene load_steps=5 format=3 uid="uid://d12kegvajsxx3"]
+
+[ext_resource type="Script" uid="uid://h5sc20mcunoj" path="res://ui/settings/settings.gd" id="1_hrs25"]
+[ext_resource type="PackedScene" uid="uid://buoftfjbon5fw" path="res://ui/button/button.tscn" id="2_fayoa"]
+
+[sub_resource type="Shader" id="Shader_bc4aw"]
+code = "/**
+Simple Shadow Shader for 2D Sprites
+
+This shader adds a simple shadow effect to 2D sprites, making use of a duplicated `TextureRect` node with an assigned shadow shader. 
+Usage: Duplicate a `TextureRect` node, assign this shader to the new one, and then adjust the `shadow_offset` to position the shadow.
+
+- Godot Engine Version: 4.4.1
+- Shader Version: 1.0
+- Repository: https://github.com/joanroig/godot-shaders
+- License: MIT
+**/
+
+shader_type canvas_item;
+
+// Offset for the shadow (in pixels).
+uniform vec2 shadow_offset = vec2(10.0, 10.0); 
+
+// Color of the shadow (RGBA format, default: semi-transparent black).
+uniform vec4 shadow_color : source_color = vec4(0.0, 0.0, 0.0, 0.3);
+
+// A varying to store the sprite's rotation angle computed in the vertex shader.
+varying float sprite_rotation;
+
+// Function to rotate a 2D point by a given angle (in radians).
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+void vertex() {
+    // Calculate the sprite's rotation angle from the MODEL_MATRIX (rotation matrix).
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+    
+    // Adjust the shadow's offset by rotating it in the opposite direction of the sprite's rotation.
+    VERTEX.xy += rotate_point(shadow_offset, -sprite_rotation);
+}
+
+void fragment() {
+    // Sample the original texture to obtain the sprite's color.
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Apply the shadow color by multiplying the sprite's texture color with the shadow color.
+    COLOR = tex_color * shadow_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kwmf"]
+resource_local_to_scene = true
+shader = SubResource("Shader_bc4aw")
+shader_parameter/shadow_offset = Vector2(0, 0)
+shader_parameter/shadow_color = Color(1, 1, 1, 0.929412)
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hrs25")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(526, 398)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -199.0
+offset_right = 263.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Add5Music" parent="Buttons" instance=ExtResource("2_fayoa")]
+layout_mode = 2
+
+[node name="Label" parent="Buttons/Add5Music" index="0"]
+text = "+5 music"
+
+[node name="Shadow" parent="Buttons/Add5Music" index="1"]
+material = SubResource("ShaderMaterial_7kwmf")
+
+[node name="Sub5Music" parent="Buttons" instance=ExtResource("2_fayoa")]
+layout_mode = 2
+
+[node name="Label" parent="Buttons/Sub5Music" index="0"]
+text = "-5 music"
+
+[node name="Shadow" parent="Buttons/Sub5Music" index="1"]
+material = SubResource("ShaderMaterial_7kwmf")
+
+[node name="Add5Sounds" parent="Buttons" instance=ExtResource("2_fayoa")]
+layout_mode = 2
+
+[node name="Label" parent="Buttons/Add5Sounds" index="0"]
+text = "+5 sfx"
+
+[node name="Shadow" parent="Buttons/Add5Sounds" index="1"]
+material = SubResource("ShaderMaterial_7kwmf")
+
+[node name="Sub5Sounds" parent="Buttons" instance=ExtResource("2_fayoa")]
+layout_mode = 2
+
+[node name="Label" parent="Buttons/Sub5Sounds" index="0"]
+text = "-5 sfx"
+
+[node name="Shadow" parent="Buttons/Sub5Sounds" index="1"]
+material = SubResource("ShaderMaterial_7kwmf")
+
+[node name="Back" parent="Buttons" instance=ExtResource("2_fayoa")]
+layout_mode = 2
+
+[node name="Label" parent="Buttons/Back" index="0"]
+text = "back"
+
+[node name="Shadow" parent="Buttons/Back" index="1"]
+material = SubResource("ShaderMaterial_7kwmf")
+
+[connection signal="pressed" from="Buttons/Add5Music" to="." method="_on_add_5_music_pressed"]
+[connection signal="pressed" from="Buttons/Sub5Music" to="." method="_on_sub_5_music_pressed"]
+[connection signal="pressed" from="Buttons/Add5Sounds" to="." method="_on_add_5_sounds_pressed"]
+[connection signal="pressed" from="Buttons/Sub5Sounds" to="." method="_on_sub_5_sounds_pressed"]
+[connection signal="pressed" from="Buttons/Back" to="." method="_on_sub_5_sounds_pressed"]
+
+[editable path="Buttons/Add5Music"]
+[editable path="Buttons/Sub5Music"]
+[editable path="Buttons/Add5Sounds"]
+[editable path="Buttons/Sub5Sounds"]
+[editable path="Buttons/Back"]
