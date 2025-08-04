@@ -1,1 +1,1 @@
-GMTK 2025 Game Jam Game from JAM NINGAS
+GMTK 2025 Game Jam Game from JAM NINJAS
